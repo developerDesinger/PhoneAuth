@@ -12,17 +12,13 @@ const SignUpScreen = () => {
   const handleSignUp = async () => {
     setLoading(true);
     try {
-      const phoneRegex = /^\+92[3][0-9]{9}$/;
-      if (!phoneRegex.test(phoneNumber)) {
-        Alert.alert('Invalid phone number format', 'Use +923XXXXXXXXX');
-        setLoading(false);
-        return;
-      }
+    
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      Alert.alert('Success', 'OTP has been sent to your phone number');
       navigation.navigate('VerifyOTP', { confirmation, phone: phoneNumber });
     } catch (error: any) {
       console.error('Error sending OTP:', error);
-      Alert.alert('Error', error?.message || 'Something went wrong');
+      Alert.alert('Error', 'Failed to send OTP');
     } finally {
       setLoading(false);
     }
@@ -55,7 +51,7 @@ const SignUpScreen = () => {
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder="+923XXXXXXXXX"
+                  placeholder="+92XXXXXXXXXX"
                   placeholderTextColor="#999"
                   value={phoneNumber}
                   onChangeText={setPhoneNumber}

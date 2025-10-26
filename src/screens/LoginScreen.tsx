@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,20 +10,68 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { login } from '../redux/slices/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { firestore } from '../config/firebase';
+import { Alert } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+type RootStackParamList = {
+  Home: undefined;
+  SignUp: undefined;
+};
+
 const LoginScreen = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state: any) => state.auth.isLoggedIn);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+92');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    navigation.navigate('Home' as never);
+  const handleLogin = async () => {
+    if (!phoneNumber) return;
+    setLoading(true);
+    try {
+      const querySnapshot = await firestore()
+        .collection('users')
+        .where('phoneNumber', '==', phoneNumber)
+        .get();
+      if (!querySnapshot.empty) {
+        // Get user data from Firestore
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        await AsyncStorage.setItem('phoneNumber', userData.phoneNumber); // Store phone number in AsyncStorage
+        dispatch(login({ uid: userDoc.id, phoneNumber: userData.phoneNumber }));
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
+      } else {
+        Alert.alert('No account found for this phone number. Please sign up.');
+      }
+    } catch (error: any) {
+      Alert.alert('Error checking user', error?.message || String(error));
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setTimeout(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' as never }],
+        });
+      }, 0);
+    }
+  }, [isLoggedIn, navigation]);
 
   const handleSignUp = () => {
     navigation.navigate('SignUp' as never);
@@ -56,7 +104,7 @@ const LoginScreen = () => {
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.textInput}
-                  placeholder="+923XXXXXXXXX"
+                  placeholder="+92XXXXXXXXXX"
                   placeholderTextColor="#999"
                   value={phoneNumber}
                   onChangeText={setPhoneNumber}
@@ -72,9 +120,10 @@ const LoginScreen = () => {
               style={styles.loginButton}
               onPress={handleLogin}
               activeOpacity={0.8}
+              disabled={loading}
             >
               <View style={styles.buttonGradient}>
-                <Text style={styles.loginButtonText}>Login</Text>
+                <Text style={styles.loginButtonText}>{loading ? 'Logging in...' : 'Login'}</Text>
               </View>
             </TouchableOpacity>
 

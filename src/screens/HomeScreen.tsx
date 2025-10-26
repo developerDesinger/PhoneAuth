@@ -1,12 +1,27 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../config/firebase';
+import { useAppDispatch } from '../redux/hooks';
+import { logout } from '../redux/slices/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const HomeScreen = () => {
   const navigation = useNavigation();
 
-  const handleLogout = () => {
-    navigation.navigate('Login' as never);
+  const dispatch = useAppDispatch();
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+      await AsyncStorage.removeItem('phoneNumber'); // Remove phone number from AsyncStorage
+      dispatch(logout());
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' as never }],
+      });
+    } catch (error: any) {
+      Alert.alert('Error', error?.message || 'Failed to sign out');
+    }
   };
 
   return (

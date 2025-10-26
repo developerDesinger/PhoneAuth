@@ -55,7 +55,6 @@ const VerifyOTPScreen = () => {
       // 🔹 Confirm the code with Firebase Auth
       const result = await confirmation.confirm(code);
       const user = result.user;
-      console.log('✅ OTP verified successfully:', user.uid);
 
       // 🔹 Save or update user in Firestore
       await firestore().collection('users').doc(user.uid).set({
@@ -64,14 +63,13 @@ const VerifyOTPScreen = () => {
         createdAt: firestore.FieldValue.serverTimestamp(),
       });
 
-      console.log('✅ User stored in Firestore:', user.uid);
 
-      Alert.alert('Success', 'Phone verified successfully!');
+      Alert.alert('Success', 'Phone number verified successfully!');
       navigation.navigate('Login' as never);
 
     } catch (error: any) {
       console.error('❌ OTP verification error:', error);
-      Alert.alert('Error', error?.message || 'OTP verification failed');
+      Alert.alert('Failed', 'OTP verification failed');
     } finally {
       setLoading(false);
     }
