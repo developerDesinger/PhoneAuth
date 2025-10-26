@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "580156863565",
+    "project_id": "phoneauth-877dd",
+    "storage_bucket": "phoneauth-877dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580156863565:android:615bdf53feafe5f09c1804",
+        "android_client_info": {
+          "package_name": "com.phoneauth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZqEkwGQVtaIoAXXsX8gXdxzDQljCssjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
