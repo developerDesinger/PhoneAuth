@@ -1,40 +1,53 @@
 # PhoneAuth App
 
+A React Native app with phone number authentication using Firebase.
+
+## Quick Start - iOS
+
+### Prerequisites
+- Xcode (latest version)
+- Node.js (v18 or higher)
+- CocoaPods (`sudo gem install cocoapods`)
+
+### Clone and Run
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/developerDesinger/PhoneAuth.git
+   cd PhoneAuth
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Setup iOS:**
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   ```
+
+4. **Run on iOS:**
+   ```bash
+   npx react-native run-ios
+   ```
+   
+   Or open `ios/PhoneAuth.xcworkspace` in Xcode and run from there.
+
+### Important Notes
+- Always use `PhoneAuth.xcworkspace` (not `.xcodeproj`) when opening in Xcode
+- If you get CocoaPods errors, run `pod install` in the `ios` directory
+- The project has been properly configured with "PhoneAuth" naming (fixed from previous "ScoreHub" issues)
+
 ## Features
-
-- **Phone Number Authentication:**
-  - Users sign up and log in using their phone number and OTP verification via Firebase Authentication.
-- **Persistent Login State:**
-  - After successful login, the phone number is stored in both Redux and AsyncStorage. The app checks for this on launch and navigates directly to the Home screen if found.
-- **Firestore User Storage:**
-  - On sign up/login, user data (ID, phone number, createdAt) is saved in Firestore under the `users` collection.
-- **Centralized State Management:**
-  - Redux Toolkit manages authentication state. Redux Persist and AsyncStorage ensure state is saved across app restarts.
-- **Navigation Logic:**
-  - AuthStack and AppStack navigation is controlled by Redux state. If logged in, users see Home; otherwise, they see Login/SignUp.
-- **Logout:**
-  - Logging out clears the phone number from AsyncStorage and Redux, returning the user to the Login screen.
-
-## How It Works
-
-1. **Sign Up:**
-   - Enter your phone number, receive OTP, verify, and create a user in Firestore.
-2. **Login:**
-   - Enter your phone number. If found in Firestore, log in and store the phone number in Redux and AsyncStorage.
-3. **App Launch:**
-   - On app start, checks AsyncStorage for a stored phone number. If present, sets Redux state and navigates to Home.
-4. **Logout:**
-   - Clears phone number from AsyncStorage and Redux, navigates to Login.
+- Phone number authentication with Firebase
+- OTP verification  
+- User data storage in Firestore
+- Persistent login state
 
 ## Tech Stack
 - React Native
 - Firebase Authentication & Firestore
-- Redux Toolkit & Redux Persist
-- AsyncStorage
-- React Navigation
-
-## Setup
-1. Clone the repo
-2. Install dependencies: `npm install`
-3. Add your Firebase config files
-4. Run the app: `npx react-native run-android` or `npx react-native run-ios`
+- Redux Toolkit
