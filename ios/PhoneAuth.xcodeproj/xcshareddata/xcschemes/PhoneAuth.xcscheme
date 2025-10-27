@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ScoreHub.app"
-               BlueprintName = "ScoreHub"
-               ReferencedContainer = "container:ScoreHub.xcodeproj">
+               BuildableName = "PhoneAuth.app"
+               BlueprintName = "PhoneAuth"
+               ReferencedContainer = "container:PhoneAuth.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "ScoreHubTests.xctest"
-               BlueprintName = "ScoreHubTests"
-               ReferencedContainer = "container:ScoreHub.xcodeproj">
+               BuildableName = "PhoneAuthTests.xctest"
+               BlueprintName = "PhoneAuthTests"
+               ReferencedContainer = "container:PhoneAuth.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ScoreHub.app"
-            BlueprintName = "ScoreHub"
-            ReferencedContainer = "container:ScoreHub.xcodeproj">
+            BuildableName = "PhoneAuth.app"
+            BlueprintName = "PhoneAuth"
+            ReferencedContainer = "container:PhoneAuth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ScoreHub.app"
-            BlueprintName = "ScoreHub"
-            ReferencedContainer = "container:ScoreHub.xcodeproj">
+            BuildableName = "PhoneAuth.app"
+            BlueprintName = "PhoneAuth"
+            ReferencedContainer = "container:PhoneAuth.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
